@@ -5,7 +5,6 @@ typing
 overrides
 tqdm
 nltk
-allennlp==0.2.3
 pytz
 tensorboard-pytorch
 git+git://github.com/j6mes/drqa@parallel
@@ -14,3 +13,4 @@ spacy
 joblib
 pandas
 ftfy
+allennlp

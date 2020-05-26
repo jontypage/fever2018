@@ -6,7 +6,7 @@ from operator import itemgetter
 from tqdm import tqdm
 import argparse
 
-labels = ["SUPPORTS", "NOT ENOUGH INFO", "REFUTES"]
+labels = ["REFUTES", "NOT ENOUGH INFO", "SUPPORTS"]
 classifications = [[], [], []]
 ntype = []
 
@@ -73,9 +73,9 @@ for output in tqdm(decision_fp.readlines()):
   update_class(qid, output, outputs)
 
   if(output == 2):
-    refute_evidences[qid].append([title, int(linenum)])
-  elif(output == 0):
     support_evidences[qid].append([title, int(linenum)])
+  elif(output == 0):
+    refute_evidences[qid].append([title, int(linenum)])
 
 print("Writing output...")
 for qid in tqdm(order):
@@ -85,9 +85,9 @@ for qid in tqdm(order):
 
   evidence = []
   if(output == 0):
-    evidence = support_evidences[qid]
-  elif(output == 2):
     evidence = refute_evidences[qid]
+  elif(output == 2):
+    evidence = support_evidences[qid]
 
   # sort by line num then title (perform stable sorts in reverse order)
   evidence.sort(key=itemgetter(0))
@@ -100,3 +100,4 @@ for qid in tqdm(order):
 
   struct["predicted_evidence"] = answer
   out_fp.write(jsonencoder.encode(struct) + "\n")
+
